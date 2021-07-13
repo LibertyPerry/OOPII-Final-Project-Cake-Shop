@@ -1,2 +1,13 @@
 # OOPII-Final-Project-Cake-Shop
-This is my Final Project Object Oriented Programming II
+
+## Synopsis
+
+
+## Motivation
+
+## How to run
+
+## Code Example
+
+ ## Contributors
+ I wrote this code by myself got my final project. 
