@@ -47,6 +47,11 @@ public class Final_Project_Cake_Shop extends Application{
 		name.setAlignment(Pos.TOP_LEFT);
 		paneForName.setCenter(name);
 		borderpane.setTop(paneForName);
+		//How to Run
+		Text howtorun = new Text("Use KeyBoard and Enter / Space keys to enter info");
+		howtorun.setFont(Font.font("Times New Roman", 25));
+		stackpane.getChildren().add(howtorun);
+		StackPane.setAlignment(howtorun, Pos.TOP_RIGHT);
 		
 		//Make menu Buttons
 		Button shape = new Button("Shape");
@@ -70,6 +75,7 @@ public class Final_Project_Cake_Shop extends Application{
 		borderpane.setBottom(menu);
 
 		//Make shape Buttons
+		BorderPane shapeButtons = new BorderPane();
 		Button shapeRound = new Button("Round Cake");
 		Button shapeRectangle = new Button("Rectangle Cake");
 		VBox shapeMenu = new VBox();
@@ -78,8 +84,9 @@ public class Final_Project_Cake_Shop extends Application{
 		shapeMenu.setSpacing(5);
 		shapeMenu.setAlignment(Pos.BOTTOM_RIGHT);
 		shapeMenu.setVisible(false);
-		stackpane.getChildren().add(shapeMenu);
-		StackPane.setAlignment(shapeMenu, Pos.BOTTOM_RIGHT);
+		shapeButtons.setBottom(shapeMenu);
+		stackpane.getChildren().add(shapeButtons);
+		StackPane.setAlignment(shapeMenu, Pos.BOTTOM_LEFT);
 		
 		//Make Size Buttons
 		Button small = new Button("Small");
@@ -286,6 +293,7 @@ public class Final_Project_Cake_Shop extends Application{
 				});
 			
 			updateCake.setOnAction(e -> {
+				
 				//Size
 				if(cakeSize == 1) {
 					priceRate = 1;
@@ -327,6 +335,7 @@ public class Final_Project_Cake_Shop extends Application{
 					pane.getChildren().add(cake);
 					stackpane.getChildren().add(tierOneLabel);
 					StackPane.setAlignment(tierOneLabel, Pos.CENTER_LEFT);
+					
 					//Tiers
 					if(cakeTiers >= 2) {
 						Circle cake2 = new Circle(400, -400, (radius / 2));
