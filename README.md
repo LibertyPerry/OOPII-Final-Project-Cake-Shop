@@ -10,7 +10,7 @@ To run this project you just need the file, and access to Javafx to run the prog
 ![image](https://user-images.githubusercontent.com/77160908/126360772-09876219-2db7-494d-91ec-7c5ffd31073e.png)
 [This is and example of the code running]
 ## Code Example
-I am proun of this snippet of code because when the "Finshed" button is pressed this code will display the final screen.
+I am proud of this snippet of code because when the "Finshed" button is pressed this code will display the final screen.
 ```
 finsh.setOnAction(e -> {
 				menu.setVisible(false);
