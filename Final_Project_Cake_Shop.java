@@ -1,3 +1,5 @@
+package application;
+
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -30,11 +32,13 @@ public class Final_Project_Cake_Shop extends Application{
 	int cakeSize = 1; // 1 = small, 2 = medium, 3 = large
 	int cakeTiers = 1; // Max 3 tiers
 	int cakeFlavor = 1; // 1 = Vanilla, 2 = Chocolate, 3 = Strawberry
-	double length = 0;
+	int cakeFrosting = 1; // 1 = Pink, 2 = Blue, 3 = Yellow
+	int cakeTrim = 1; // 1 = Pink, 2 = Blue, 3 = Yellow
 	double width = 0;
 	double height = 0;
 	double radius = 0;
-	double height2 = 0;
+	double priceRate = 1;
+	double totalPrice = 0;
 	@Override
 	public void start(Stage primaryStage) {
 		Pane pane = new Pane();
@@ -108,8 +112,6 @@ public class Final_Project_Cake_Shop extends Application{
 		stackpane.getChildren().add(tierMenu);
 		StackPane.setAlignment(tierMenu, Pos.BOTTOM_RIGHT);
 		
-		
-		
 		//Make Flavor Buttons
 		Button vanilla = new Button("Vanilla");
 		Button chocolate = new Button("Chocolate");
@@ -133,8 +135,28 @@ public class Final_Project_Cake_Shop extends Application{
 		decorationMenu.setVisible(false);
 		stackpane.getChildren().add(decorationMenu);
 		StackPane.setAlignment(decorationMenu, Pos.BOTTOM_LEFT);
-			//Make Frosting Buttons
-		
+		//Make Frosting Buttons
+		Button pink = new Button("Pink");
+		Button blue = new Button("Blue");
+		Button yellow = new Button("Yellow");
+		VBox frostingMenu = new VBox();
+		frostingMenu.getChildren().addAll(pink, blue, yellow);
+		frostingMenu.setSpacing(5);
+		frostingMenu.setAlignment(Pos.BOTTOM_LEFT);
+		frostingMenu.setVisible(false);
+		stackpane.getChildren().add(frostingMenu);
+		StackPane.setAlignment(frostingMenu, Pos.BOTTOM_RIGHT);
+		//Make Trim Buttons
+		Button pinkT = new Button("Pink");
+		Button blueT = new Button("Blue");
+		Button yellowT = new Button("Yellow");
+		VBox trimMenu = new VBox();
+		trimMenu.getChildren().addAll(pinkT, blueT, yellowT);
+		trimMenu.setSpacing(5);
+		trimMenu.setAlignment(Pos.BOTTOM_LEFT);
+		trimMenu.setVisible(false);
+		stackpane.getChildren().add(trimMenu);
+		StackPane.setAlignment(trimMenu, Pos.BOTTOM_RIGHT);
 		
 		//Event Handlers
 		name.setOnAction(e -> {
@@ -223,33 +245,89 @@ public class Final_Project_Cake_Shop extends Application{
 					flavorMenu.setVisible(false);
 					menu.setVisible(true);
 				});
-				
+			decorate.setOnAction(e -> {
+				menu.setVisible(false);
+				decorationMenu.setVisible(true);
+			});
+				frosting.setOnAction(e -> {
+					decorationMenu.setVisible(false);
+					frostingMenu.setVisible(true);
+				});
+					pink.setOnAction(e -> {
+						cakeFrosting = 1;
+						frostingMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+					blue.setOnAction(e -> {
+						cakeFrosting = 2; 
+						frostingMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+					yellow.setOnAction(e -> {
+						cakeFrosting = 3;
+						frostingMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+				trim.setOnAction(e -> {
+					decorationMenu.setVisible(false);
+					trimMenu.setVisible(true);
+				});
+					pinkT.setOnAction(e -> {
+						cakeTrim = 1;
+						trimMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+					blueT.setOnAction(e -> {
+						cakeTrim = 2;
+						trimMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+					yellowT.setOnAction(e -> {
+						cakeTrim = 3;
+						trimMenu.setVisible(false);
+						decorationMenu.setVisible(true);
+					});
+				backToMainMenu.setOnAction(e -> {
+					decorationMenu.setVisible(false);
+					menu.setVisible(true);
+				});
+			
 			updateCake.setOnAction(e -> {
-				stackpane.getChildren().remove(stackpane.lookup("cake"));
-				stackpane.getChildren().remove(stackpane.lookup("cake2"));
 				//Size
 				if(cakeSize == 1) {
-					length = 150;
+					priceRate = 1;
 					width = 150;
 					height = 100;
 					radius = 50;
-					height2 = 100;
 				}else if(cakeSize == 2) {
-					length = 300;
+					priceRate = 1;
 					width = 300;
 					height = 175;
 					radius = 100;
-					height2 = 100;
 				}else if(cakeSize == 3) {
-					length = 450;
+					priceRate = 1;
 					width = 450;
 					height = 150;
 					radius = 150;
-					height2 = 125;
 				}
 				// Shape
 				if(cakeShape == 1) {
 					Circle cake = new Circle(400, -200, radius);
+					cake.setStrokeWidth(3);
+					if(cakeFrosting == 1) {
+						cake.setFill(Color.LIGHTPINK);
+					}else if(cakeFrosting == 2) {
+						cake.setFill(Color.CORNFLOWERBLUE);
+					}else if(cakeFrosting == 3) {
+						cake.setFill(Color.LIGHTYELLOW);
+					}
+					if(cakeTrim == 1) {
+						cake.setStroke(Color.DEEPPINK);
+					}else if(cakeTrim == 2) {
+						cake.setStroke(Color.DARKSLATEBLUE);
+					}else if(cakeTrim == 3) {
+						cake.setStroke(Color.YELLOW);
+					}
 					Label tierOneLabel = new Label("Tier One", cake);
 					tierOneLabel.setContentDisplay(ContentDisplay.TOP);
 					tierOneLabel.setTextFill(Color.BLACK);
@@ -259,6 +337,21 @@ public class Final_Project_Cake_Shop extends Application{
 					//Tiers
 					if(cakeTiers >= 2) {
 						Circle cake2 = new Circle(400, -400, (radius / 2));
+						cake2.setStrokeWidth(3);
+						if(cakeFrosting == 1) {
+							cake2.setFill(Color.LIGHTPINK);
+						}else if(cakeFrosting == 2) {
+							cake2.setFill(Color.CORNFLOWERBLUE);
+						}else if(cakeFrosting == 3) {
+							cake2.setFill(Color.LIGHTYELLOW);
+						}
+						if(cakeTrim == 1) {
+							cake2.setStroke(Color.DEEPPINK);
+						}else if(cakeTrim == 2) {
+							cake2.setStroke(Color.DARKSLATEBLUE);
+						}else if(cakeTrim == 3) {
+							cake2.setStroke(Color.YELLOW);
+						}
 						Label tierTwoLabel = new Label("Tier Two", cake2);
 						tierTwoLabel.setContentDisplay(ContentDisplay.TOP);
 						tierTwoLabel.setTextFill(Color.BLACK);
@@ -268,30 +361,113 @@ public class Final_Project_Cake_Shop extends Application{
 					}
 					if(cakeTiers == 3) {
 						Circle cake3 = new Circle(400, -600, (radius / 4));
+						cake3.setStrokeWidth(3);
+						if(cakeFrosting == 1) {
+							cake3.setFill(Color.LIGHTPINK);
+						}else if(cakeFrosting == 2) {
+							cake3.setFill(Color.CORNFLOWERBLUE);
+						}else if(cakeFrosting == 3) {
+							cake3.setFill(Color.LIGHTYELLOW);
+						}
+						if(cakeTrim == 1) {
+							cake3.setStroke(Color.DEEPPINK);
+						}else if(cakeTrim == 2) {
+							cake3.setStroke(Color.DARKSLATEBLUE);
+						}else if(cakeTrim == 3) {
+							cake3.setStroke(Color.YELLOW);
+						}
+						Label tierThreeLabel = new Label("Tier Three", cake3);
+						tierThreeLabel.setContentDisplay(ContentDisplay.TOP);
+						tierThreeLabel.setTextFill(Color.BLACK);
+						pane.getChildren().add(cake3);
+						stackpane.getChildren().add(tierThreeLabel);
+						StackPane.setAlignment(tierThreeLabel, Pos.CENTER_RIGHT);
 					}
 				}else if (cakeShape == 2) {
 					Rectangle cake = new Rectangle(400, -200, width, height);
+					cake.setStrokeWidth(3);
+					if(cakeFrosting == 1) {
+						cake.setFill(Color.LIGHTPINK);
+					}else if(cakeFrosting == 2) {
+						cake.setFill(Color.CORNFLOWERBLUE);
+					}else if(cakeFrosting == 3) {
+						cake.setFill(Color.LIGHTYELLOW);
+					}
+					if(cakeTrim == 1) {
+						cake.setStroke(Color.DEEPPINK);
+					}else if(cakeTrim == 2) {
+						cake.setStroke(Color.DARKSLATEBLUE);
+					}else if(cakeTrim == 3) {
+						cake.setStroke(Color.YELLOW);
+					}
 					Label tierOneLabel = new Label("Tier One", cake);
 					tierOneLabel.setContentDisplay(ContentDisplay.TOP);
 					tierOneLabel.setTextFill(Color.BLACK);
 					pane.getChildren().add(cake);
-					borderpane.setCenter(tierOneLabel);
+					stackpane.getChildren().add(tierOneLabel);
+					StackPane.setAlignment(tierOneLabel, Pos.CENTER_LEFT);
 					//Tiers
-					if(cakeTiers == 1) {
-						
-					}else if(cakeTiers == 2) {
-						
-					}else if(cakeTiers == 3) {
-						
+					if(cakeTiers >= 2) {
+						Rectangle cake2 = new Rectangle(400, -400, width * .8 , height * .8);
+						cake2.setStrokeWidth(3);
+						if(cakeFrosting == 1) {
+							cake2.setFill(Color.LIGHTPINK);
+						}else if(cakeFrosting == 2) {
+							cake2.setFill(Color.CORNFLOWERBLUE);
+						}else if(cakeFrosting == 3) {
+							cake2.setFill(Color.LIGHTYELLOW);
+						}
+						if(cakeTrim == 1) {
+							cake2.setStroke(Color.DEEPPINK);
+						}else if(cakeTrim == 2) {
+							cake2.setStroke(Color.DARKSLATEBLUE);
+						}else if(cakeTrim == 3) {
+							cake2.setStroke(Color.YELLOW);
+						}
+						Label tierTwoLabel = new Label("Tier Two", cake2);
+						tierTwoLabel.setContentDisplay(ContentDisplay.TOP);
+						tierTwoLabel.setTextFill(Color.BLACK);
+						pane.getChildren().add(cake2);
+						stackpane.getChildren().add(tierTwoLabel);
+						StackPane.setAlignment(tierTwoLabel, Pos.CENTER);
+					}
+					if(cakeTiers == 3) {
+						Rectangle cake3 = new Rectangle(400, -600, width / 2, height / 2);
+						cake3.setStrokeWidth(3);
+						if(cakeFrosting == 1) {
+							cake3.setFill(Color.LIGHTPINK);
+						}else if(cakeFrosting == 2) {
+							cake3.setFill(Color.CORNFLOWERBLUE);
+						}else if(cakeFrosting == 3) {
+							cake3.setFill(Color.LIGHTYELLOW);
+						}
+						if(cakeTrim == 1) {
+							cake3.setStroke(Color.DEEPPINK);
+						}else if(cakeTrim == 2) {
+							cake3.setStroke(Color.DARKSLATEBLUE);
+						}else if(cakeTrim == 3) {
+							cake3.setStroke(Color.YELLOW);
+						}
+						Label tierThreeLabel = new Label("Tier Three", cake3);
+						tierThreeLabel.setContentDisplay(ContentDisplay.TOP);
+						tierThreeLabel.setTextFill(Color.BLACK);
+						pane.getChildren().add(cake3);
+						stackpane.getChildren().add(tierThreeLabel);
+						StackPane.setAlignment(tierThreeLabel, Pos.CENTER_RIGHT);
 					}
 				}
-				//Flavor
-				//Frosting
+			});
+			finsh.setOnAction(e -> {
+				menu.setVisible(false);
+				double price = priceRate * cakeTiers * 10;
+				Text cakeSummary = new Text("");
+				
 				
 			});
+			
 		borderpane.getChildren().add(pane);
 		stackpane.getChildren().add(borderpane);
-		Scene scene = new Scene(stackpane, 800, 700);
+		Scene scene = new Scene(stackpane, 1000, 700);
 		scene.setFill(Color.CORNFLOWERBLUE);
 		primaryStage.setTitle("Cake Shop");
 		primaryStage.setScene(scene);
