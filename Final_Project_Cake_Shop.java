@@ -1,30 +1,23 @@
-package application;
-
-import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 
 public class Final_Project_Cake_Shop extends Application{
@@ -164,7 +157,7 @@ public class Final_Project_Cake_Shop extends Application{
 			paneForName.setVisible(false);
 			Text Ordername = new Text(0, 23, " ");
 			Ordername.setText("Order Name: " + name.getText());
-			Ordername.setFont(Font.font("Courier", 25));
+			Ordername.setFont(Font.font("Times New Roman", 25));
 			Ordername.setFill(Color.BLACK);
 			pane.getChildren().add(Ordername);
 			menu.setVisible(true);
@@ -459,10 +452,21 @@ public class Final_Project_Cake_Shop extends Application{
 			});
 			finsh.setOnAction(e -> {
 				menu.setVisible(false);
-				double price = priceRate * cakeTiers * 10;
-				Text cakeSummary = new Text("");
-				
-				
+				double price = priceRate * cakeTiers * 10.0;
+				String stringPrice = String.valueOf(price);
+				String CakeFlavor = new String(" ");
+				// 1 = Vanilla, 2 = Chocolate, 3 = Strawberry
+				if(cakeFlavor == 1) {
+					CakeFlavor = "Vanilla";
+				}else if(cakeFlavor == 2) {
+					CakeFlavor = "Chocolate";
+				}else if(cakeFlavor == 3) {
+					CakeFlavor = "Strawberry";
+				}
+				Text cakeSummary = new Text("The Total Price of Your "+ cakeTiers+ " tier " + CakeFlavor + " Cake is : $" + stringPrice + "0");
+				cakeSummary.setFont(Font.font("Times New Roman", 35));
+				stackpane.getChildren().add(cakeSummary);
+				StackPane.setAlignment(cakeSummary, Pos.BOTTOM_CENTER);
 			});
 			
 		borderpane.getChildren().add(pane);
